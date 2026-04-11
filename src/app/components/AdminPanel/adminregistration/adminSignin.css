@@ -1,0 +1,23 @@
+.admin_bg {
+    background-image: url('/main_pics/bg1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.admin_formdiv{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 10);
+    /* blurty effect */
+    backdrop-filter: blur(0.7px);
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 4px;
+}
+
+/* .admin_formdiv input,button{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 1);
+}
+
+.admin_formdiv input:focus{
+    outline: none;
+} */

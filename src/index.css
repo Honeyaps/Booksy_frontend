@@ -1,0 +1,159 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: rgb(245, 255, 253);
+}
+
+p,label{
+    font-size: small;
+}
+
+label,.modal_heading{
+    font-weight: bold;
+}
+
+input,
+textarea,
+select{
+    font-size: medium;
+    height: 45px;
+    border: 1px solid grey;
+    padding-left: 10px;
+}
+
+textarea:focus,
+select:focus,
+input:focus{
+    outline: none;
+}
+
+a{
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+
+.form_btn{
+    height: 45px;
+    background-color: rgb(50, 50, 50);
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+
+.form_btn:hover{
+    background-color: rgb(0, 0, 0);
+}
+
+.search_bar {
+    border: none;
+    border-bottom: 1px solid grey;
+    background-color: rgb(246, 255, 253);
+    outline: none; 
+}
+
+.search_bar:focus {
+    border-bottom: 1px solid grey;
+    outline: none;
+}
+
+
+
+/* .modal{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 80vh;
+} */
+
+
+/* admin portal */
+.admin-layout {
+    display: flex;
+    height: 100vh;
+    background-color: #ffffff;
+  }
+  
+  .logo {
+    margin: 20px 0 0 -20px;
+  }
+  
+  .sidebar {
+    width: 230px;
+    box-shadow: 7px 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    position: relative;
+  }
+  
+  .sidebar ul li {
+    margin: 15px 0;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+    transition: 0.1s ease-in-out;
+  }
+  
+  .sidebar ul li:hover {
+    background-color: #333333;
+    color: #ffffff;
+  }
+  
+  .sidebar ul li.active {
+    background-color: #333333;
+    color: #ffffff;
+  }
+  
+  .content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+   
+  }
+  
+  .back_navigation {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    height: 60px;
+  }
+  
+  
+  .back_navigation p {
+    margin: 0;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 5px;
+    background-color: #eeeeee;
+    overflow: auto;
+    height: 100vh;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  /* loading spinner */
+
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; 
+  }
+
+  .refresh{
+    cursor: pointer;
+    border: 1px solid grey;
+    color: grey;
+  }
+
+  .refresh:hover{
+    border: 1px solid black;
+    color: black;
+  }
+
+  

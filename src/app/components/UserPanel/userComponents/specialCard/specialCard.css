@@ -1,0 +1,15 @@
+h1{
+    font-size: 55px;
+    font-family: none;
+}
+
+.price{
+  margin-top: -8px;
+}
+
+.crousel_pic{
+    width: 100%; 
+    height: 100%;
+    object-fit: cover; 
+    border-radius: 20px;
+}
