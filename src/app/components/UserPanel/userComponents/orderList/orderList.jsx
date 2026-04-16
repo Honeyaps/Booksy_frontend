@@ -41,7 +41,6 @@ export const OrderList = () => {
                                     <th scope="col">Book Cover</th>
                                     <th scope="col">Title</th>
                                     <th scope="col">Price</th>
-                                    {/* <th scope="col">Size</th> */}
                                     <th scope="col">Quantity</th>
                                     <th scope="col">Order Date</th>
                                     <th scope="col">Delivery Date</th>
@@ -58,7 +57,6 @@ export const OrderList = () => {
                                             <td><img src={order.productDetails.card_pic} alt="Product" width="100" height="140" className="img-thumbnail" /></td>
                                             <td>{order.productDetails.productName}</td>
                                             <td>Rs. {order.productDetails.price}</td>
-                                            {/* <td>{order.size}</td> */}
                                             <td>{order.totalQuantity}</td>
                                             <td>{moment(order.insert_date_time).format("DD MMM, YYYY")}</td>
                                             <td>{moment(order.delivery_date_time).format("DD MMM, YYYY")}</td>

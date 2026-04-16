@@ -17,8 +17,8 @@ import { ViewProduct } from "./products/viewProduct/viewProduct";
 export const AdminPortal = () => {
   const navigate = useNavigate();
   const [isHoveredLogout, setIsHoveredLogout] = useState(false);
-  const [activeComponent, setActiveComponent] = useState("Books");
-  const [breadcrumb, setBreadcrumb] = useState("Books");
+  const [activeComponent, setActiveComponent] = useState("Products");
+  const [breadcrumb, setBreadcrumb] = useState("Products");
   const [productId, setProductId] = useState(null);
 
   useEffect(() => {
@@ -43,17 +43,17 @@ export const AdminPortal = () => {
         case "Dashboard":
             setBreadcrumb("Dashboard");
             break;
-        case "Books":
-            setBreadcrumb("Books");
+        case "Products":
+            setBreadcrumb("Products");
             break;
         case "AddProduct":
-            setBreadcrumb("Books > AddProduct");
+            setBreadcrumb("Products > AddProduct");
             break;
         case "EditProduct":
-            setBreadcrumb("Books > EditProduct");
+            setBreadcrumb("Products > EditProduct");
             break;
         case "ViewProduct":
-            setBreadcrumb("Books > ViewProduct");
+            setBreadcrumb("Products > ViewProduct");
             break;
         case "Settings":
             setBreadcrumb("Settings");
@@ -65,7 +65,7 @@ export const AdminPortal = () => {
 
 const handleBack = () => {
   if (activeComponent === "AddProduct" || activeComponent === "EditProduct" || activeComponent === "ViewProduct") {
-    handleNavigation("Books");
+    handleNavigation("Products");
   } else {
     handleNavigation("Dashboard"); 
   }
@@ -77,7 +77,7 @@ const renderComponent = () => {
     switch (activeComponent) {
         case "Dashboard":
             return <Dashboard />;
-        case "Books":
+        case "Products":
             return <Products setActiveComponent={handleNavigation} />;
         case "AddProduct":
             return <AddProduct setActiveComponent={handleNavigation} />;
@@ -95,8 +95,8 @@ const renderComponent = () => {
 
 return (
   <div className="container-fluid admin-layout">
-    <nav className="sidebar px-1">
-      <div className="text-start logo">
+    <nav className="sidebar">
+      <div className="text-start">
         <img
           src="/booksy_main1.png"
           alt="Logo"
@@ -111,8 +111,8 @@ return (
           <TfiDashboard className="nav-icon" /> Dashboard
         </li> */}
         <li
-          onClick={() => handleNavigation("Books")}
-          className={activeComponent === "Books" ? "active" : ""}
+          onClick={() => handleNavigation("Products")}
+          className={activeComponent === "Products" ? "active" : ""}
         >
           <PiShoppingBagFill className="nav-icon" /> Books
         </li>
@@ -127,7 +127,7 @@ return (
 
     <div className="content-wrapper">
       <div className="back_navigation px-2 border-0 row">
-        <div className="d-flex align-items-center col-md-6">
+        {/* <div className="d-flex align-items-center col-md-6">
           <button
             className="bg-transparent border-0 fs-6"
             onClick={handleBack}
@@ -139,9 +139,9 @@ return (
           <span className="mx-2" style={{ fontSize: "16px" }}>
             {breadcrumb} 
           </span>
-        </div>
+        </div> */}
 
-        <div className="d-flex align-items-center justify-content-end col-md-6">
+        <div className="d-flex align-items-center justify-content-end col-md-12">
           <div
             className="position-relative"
             onMouseEnter={() => setIsHoveredLogout(true)}

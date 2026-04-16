@@ -90,25 +90,15 @@ export const Navbar = () => {
 
           <div className="col-md-4">
             <div className="justify-content-start d-flex">
-              <a href="/customer-service" className="me-5 text-dark">Customer Service</a>
-              <a href="/newin" className="me-5 text-dark">Newin</a>
+              <a href="/customer-service" className="me-5 text-dark">Customer Support</a>
+              <a href="/newin" className="me-5 text-dark">New arrivals</a>
               {/* <a href="/store-locator" className="me-5 text-dark">Find a store</a> */}
-              <div
-               className="position-relative"
-               onMouseEnter={() => setIsHoveredLogout(true)}
-               onMouseLeave={() => setIsHoveredLogout(false)}
-              >
-              <a className="text-dark"><IoIosMore className="nav-icon" /></a>
 
-              {isHoveredLogout && (
-              <div className="order-dropdown position-absolute shadow">
-                <button className="order-btn form_btn w-100" onClick={handleShowOrders}>
-                  <LiaLuggageCartSolid className="nav-icon fs-4" /> Orders
-                </button>
-              </div>
-            )}
-              </div>
-              
+
+              <a className=" text-dark" onClick={handleShowSignin}>
+                <LuUser2 className="nav-icon" /> Sign in
+              </a>
+
             </div>
           </div>
 
@@ -126,62 +116,73 @@ export const Navbar = () => {
 
           <div className="col-md-4">
             <div className="justify-content-end d-flex align-items-center">
-              <a className="me-5 text-dark" onClick={handleShowSignin}>
-                <LuUser2 className="nav-icon" /> Sign in
-              </a>
+
               <a href="/offers" className="me-5 text-dark">
                 <MdOutlineLocalOffer className="nav-icon" /> Offers
               </a>
               <a href="/shoppingbag" className="text-dark">
-                <IoBagCheckOutline className="nav-icon" /> Shopping bag ({cartCount})
+                <IoBagCheckOutline className="nav-icon" /> Cart ({cartCount})
               </a>
+
+              <a
+                className="text-dark ms-5"
+                onMouseEnter={() => setIsHoveredLogout(true)}
+                onMouseLeave={() => setIsHoveredLogout(false)}
+                onClick={handleShowOrders}
+              >
+             
+                  <LiaLuggageCartSolid className="nav-icon fs-4" /> Orders
+               
+              </a>
+
             </div>
           </div>
         </div>
 
         {/* Search Bar for Desktop */}
-         <div className="row search_bar_row">
-    <div className="col-12 d-flex justify-content-end">
-      <div className="align-items-center handbag-container" style={{ position: "relative" }}>
-        <GoSearch className="nav-icon search-icon" />
-        <input
-          type="text"
-          placeholder="Search"
-          className="search_bar"
-          value={searchQuery}
-          onChange={(e) => {
-            setSearchQuery(e.target.value);
-            handleOnSearch(e.target.value); 
-          }}
-        />
-        {/* Absolutely positioned search results dropdown */}
-        {products.length > 0 && (
-          <div
-            className="search-results bg-white"
-            style={{
-              position: "absolute",
-              top: "100%", 
-              left: "0",
-              width: "100%",
-              zIndex: "10",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
-            }}
-          >
-            <div className="border-0 w-100 p-2 text-start bg-transparent">
-              {products.map((product) => (
-                <a href={`/product-view/${product._id}`} key={product._id} className="mt-2">
-                  {product.productName}
-                  <br />
-                </a>
-              ))}
+        <div className="row search_bar_row">
+          <div className="col-12 d-flex justify-content-end">
+            <div className="align-items-center handbag-container" style={{ position: "relative" }}>
+              <GoSearch className="nav-icon search-icon" />
+              <input
+                type="text"
+                placeholder="Search"
+                className="search_bar"
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  handleOnSearch(e.target.value);
+                }}
+              />
+              {/* Absolutely positioned search results dropdown */}
+              {products.length > 0 && (
+                <div
+                  className="search-results bg-white"
+                  style={{
+                    position: "absolute",
+                    top: "100%",
+                    left: "0",
+                    width: "100%",
+                    zIndex: "10",
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
+                  }}
+                >
+                  <div className="border-0 w-100 p-2 text-start bg-transparent">
+                    {products.map((product) => (
+                      <a href={`/product-view/${product._id}`} key={product._id} className="mt-2">
+                        {product.productName}
+                        <br />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
-        )}
-      </div>
-    </div>
-  </div>
+        </div>
 
       </div>
+
 
       {/* Mobile Navbar */}
       <div className="container-fluid mobile_view">
@@ -191,7 +192,7 @@ export const Navbar = () => {
               <img
                 src="/booksy_main1.png"
                 alt="H&K Logo"
-                style={{ width: "100px", marginBottom: "80px" , marginTop: "-20px" }}
+                style={{ width: "100px", marginBottom: "80px", marginTop: "-20px" }}
               />
             </a>
           </div>
@@ -215,46 +216,46 @@ export const Navbar = () => {
 
         {/* Search Bar for Mobile */}
         {/* Search Bar for Desktop */}
-         <div className="row search_bar_row">
-    <div className="col-12 d-flex justify-content-center">
-      <div className="align-items-center handbag-container" style={{ position: "relative" }}>
-        <GoSearch className="nav-icon search-icon" />
-        <input
-          type="text"
-          placeholder="Search"
-          className="search_bar"
-          value={searchQuery}
-          onChange={(e) => {
-            setSearchQuery(e.target.value);
-            handleOnSearch(e.target.value); 
-          }}
-        />
-        {/* Absolutely positioned search results dropdown */}
-        {products.length > 0 && (
-          <div
-            className="search-results bg-white"
-            style={{
-              position: "absolute",
-              top: "100%", 
-              left: "0",
-              width: "100%",
-              zIndex: "10",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
-            }}
-          >
-            <div className="border-0 w-100 p-2 text-start bg-transparent">
-              {products.map((product) => (
-                <a href={`/product-view/${product._id}`} key={product._id} className="mt-2">
-                  {product.productName}
-                  <br />
-                </a>
-              ))}
+        <div className="row search_bar_row">
+          <div className="col-12 d-flex justify-content-center">
+            <div className="align-items-center handbag-container" style={{ position: "relative" }}>
+              <GoSearch className="nav-icon search-icon" />
+              <input
+                type="text"
+                placeholder="Search"
+                className="search_bar"
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  handleOnSearch(e.target.value);
+                }}
+              />
+              {/* Absolutely positioned search results dropdown */}
+              {products.length > 0 && (
+                <div
+                  className="search-results bg-white"
+                  style={{
+                    position: "absolute",
+                    top: "100%",
+                    left: "0",
+                    width: "100%",
+                    zIndex: "10",
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
+                  }}
+                >
+                  <div className="border-0 w-100 p-2 text-start bg-transparent">
+                    {products.map((product) => (
+                      <a href={`/product-view/${product._id}`} key={product._id} className="mt-2">
+                        {product.productName}
+                        <br />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
-        )}
-      </div>
-    </div>
-  </div>
+        </div>
 
         {/* Side Navbar for Mobile */}
         <div className={`side-navbar ${isOpen ? 'open' : ''}`}>
@@ -266,7 +267,7 @@ export const Navbar = () => {
             </li>
             <li>
               <a href="/newin">
-                <IoNewspaperOutline className="nav-icon" /> Newin
+                <IoNewspaperOutline className="nav-icon" /> New arrivals
               </a>
             </li>
             <li>
@@ -281,7 +282,7 @@ export const Navbar = () => {
             </li> */}
             <li>
               <a href="/customer-service">
-                <RiCustomerService2Fill className="nav-icon" /> Customer Service
+                <RiCustomerService2Fill className="nav-icon" /> Customer Support
               </a>
             </li>
             {/* <li>
@@ -291,7 +292,7 @@ export const Navbar = () => {
             </li> */}
             <li>
               <a href="/order-list">
-              <LiaLuggageCartSolid className="nav-icon fs-4" /> Orders
+                <LiaLuggageCartSolid className="nav-icon fs-4" /> Orders
               </a>
             </li>
           </ul>

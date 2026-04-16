@@ -9,14 +9,14 @@ import { Step1 } from '../../../shoppingBag/order/step1/step1';
 import { Step2 } from '../../../shoppingBag/order/step2/step2';
 import UserAPIService from '../../../../../../services/user_service';
 
-export const BuyNowModal = ({ isOpen, setIsOpen, productId, size }) => {
+export const BuyNowModal = ({ isOpen, setIsOpen, productId }) => {
     const [currentStep, setCurrentStep] = useState(1);
     const [productDetails, setProductDetails] = useState(null);
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
 
     const steps = [
-        { name: 'User Details', component: <Step1 productId={productId} size={size} /> },
+        { name: 'User Details', component: <Step1 productId={productId} /> },
         { name: 'Payment', component: <Step2 /> },
     ];
 
@@ -79,7 +79,7 @@ export const BuyNowModal = ({ isOpen, setIsOpen, productId, size }) => {
                             </div>
                             <div className='col-md-8'>
                                 <div>
-                                    <h6>{productDetails.productName} - {size}</h6>
+                                    <h6>{productDetails.productName}</h6>
                                 </div>
                                 <div className='d-flex justify-content-between mt-3'>
                                     <div>Quantity: 1</div>

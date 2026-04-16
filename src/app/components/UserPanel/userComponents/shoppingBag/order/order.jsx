@@ -84,7 +84,7 @@ export const Order = ({ isOpen, setIsOpen }) => {
                         </div>
                         <div className='col-md-8'>
                             <div>
-                                <h6>{item.productDetail.productName} - {item.size}</h6>
+                                <h6>{item.productDetail.productName}</h6>
                             </div>
 
                             <div className='d-flex justify-content-between mt-3'>

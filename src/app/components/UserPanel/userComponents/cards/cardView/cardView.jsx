@@ -16,12 +16,12 @@ import { BuyNowModal } from "./buyNow/buyNow";
 import { OTPModal } from "../../../registration/otpverif";
 import { SignupModal } from "../../../registration/signup";
 import { SigninModal } from "../../../registration/signin";
+import { Card } from "../card";
 
 export const CardView = () => {
   const { productId } = useParams();
   const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isBuyNow, setIsBuyNow] = useState(false);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
@@ -92,17 +92,13 @@ export const CardView = () => {
 
   const BuyNow = () => {
     if (!token) {
-        setShowSigninModal(true);
-        toast.error("Please sign in to buy product");
-        return;
+      setShowSigninModal(true);
+      toast.error("Please sign in to buy product");
+      return;
     }
 
-    if (!selectedSize) {
-        toast.error("Please select a size");
-        return;
-    }
     setIsBuyNow(true);
-};
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -117,9 +113,7 @@ export const CardView = () => {
     fetchData();
   }, [productId]);
 
-  const handleSizeSelection = (size) => {
-    setSelectedSize(size);
-  };
+
 
 
   const handleAddToCart = async () => {
@@ -128,15 +122,11 @@ export const CardView = () => {
       setShowSigninModal(true);
       return;
     }
-    if (!selectedSize) {
-      toast.error("Please select a size");
-      return;
-    }
+
 
     const cartData = {
       productId,
       quantity: 1,
-      size: selectedSize,
       userId
     };
 
@@ -144,7 +134,6 @@ export const CardView = () => {
       const response = await UserAPIService.addToCart(cartData);
       const addedProduct = {
         productDetail: product,
-        size: selectedSize,
         quantity: 1,
       };
       addToCart(addedProduct);
@@ -156,7 +145,7 @@ export const CardView = () => {
     }
   };
 
- 
+
 
   return (
     <>
@@ -164,117 +153,40 @@ export const CardView = () => {
       <div className="container-fluid mt-4">
         <div className="row">
           <div className="col-md-7 product_imgs">
-            <Slider {...settings}>
-              {product?.images.map((image, index) => (
-                <div key={index}>
-                  <img
-                    src={image}
-                    alt={`Product image ${index + 1}`}
-                    className="cardView_imgs"
-                  />
-                </div>
-              ))}
-            </Slider>
+            {product?.images?.length > 0 && (
+              <img
+                src={product.images[0]}
+                alt="Product"
+                className="cardView_imgs"
+              />
+            )}
           </div>
 
           <div className="col-md-5 about_product">
             <div>
               <h1>{product?.productName}</h1>
-              <h6 className="price">RS. {product?.price}</h6>
+              <h6 className="price">₹ {product?.price}</h6>
               <img
                 src={product?.card_pic}
                 alt=""
                 className="img-fluid border border-dark my-3"
                 style={{ width: "13%" }}
               />
-              {/* <h6>SIZES</h6>
-              <div className="row d-flex gap-2 my-3 mx-1">
-                {product?.size.map((sizes, index) => (
-                  <button
-                    key={index}  
-                    className={`col-md-2 border border-dark p-2 text-center button-size ${selectedSize === sizes ? "selected-size" : ""
-                      }`}
-                    onClick={() => handleSizeSelection(sizes)} 
-                    value={sizes}
-                  >
-                    {sizes}
-                  </button>
 
-                ))}
-              </div> */}
               <h6 className="mt-3">DESCRIPTION</h6>
               <p>{product?.description}</p>
-              <button className="bg-transparent form_btn text-black border border-black w-100" onClick={BuyNow}>
-                BUY NOW
-              </button>
-              <button className="form_btn w-100 mt-3" onClick={handleAddToCart}>
-                <PiBag className="nav-icon" /> Add to Cart
-              </button>
               <h6 className="mt-4">
                 <CiTimer className="nav-icon fs-4" /> Delivery within 2-7 days
               </h6>
               <h6 className="mt-4">
                 <CiDeliveryTruck className="nav-icon fs-4" /> Free shipping
-                above 1999
               </h6>
-              {/* <div className="material-dropdown">
-                <h6 className="mt-4" onClick={toggleDropdown}>
-                  Size Chart {isOpen ? '▲' : '▼'}
-                </h6>
-                {isOpen && (
-                  <div className="dropdown-content">
-                    <p><strong>Size Chart for Clothing</strong></p>
-                    <table className="table table-bordered table-striped mt-2">
-                      <thead className="table-light">
-                        <tr>
-                          <th>Size</th>
-                          <th>Chest (inches)</th>
-                          <th>Waist (inches)</th>
-                          <th>Hip (inches)</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>XS</td>
-                          <td>31-32</td>
-                          <td>24-25</td>
-                          <td>33-34</td>
-                        </tr>
-                        <tr>
-                          <td>S</td>
-                          <td>33-34</td>
-                          <td>26-27</td>
-                          <td>35-36</td>
-                        </tr>
-                        <tr>
-                          <td>M</td>
-                          <td>35-36</td>
-                          <td>28-29</td>
-                          <td>37-38</td>
-                        </tr>
-                        <tr>
-                          <td>L</td>
-                          <td>37-39</td>
-                          <td>30-32</td>
-                          <td>39-41</td>
-                        </tr>
-                        <tr>
-                          <td>XL</td>
-                          <td>40-42</td>
-                          <td>33-35</td>
-                          <td>42-44</td>
-                        </tr>
-                        <tr>
-                          <td>XXL</td>
-                          <td>43-45</td>
-                          <td>36-38</td>
-                          <td>45-47</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-              </div> */}
+              <button className="bg-transparent form_btn text-black border border-black w-100 mt-3" onClick={BuyNow}>
+                BUY NOW
+              </button>
+              <button className="form_btn w-100 mt-3" onClick={handleAddToCart}>
+                <PiBag className="nav-icon" /> Add to Cart
+              </button>
 
             </div>
 
@@ -314,10 +226,14 @@ export const CardView = () => {
             </div>
           </div>
         </div>
-        
+
+        <div>
+          <Card />
+        </div>
+
       </div>
-      <BuyNowModal isOpen={isBuyNow} setIsOpen={setIsBuyNow} productId={productId} size={selectedSize} />
-      
+      <BuyNowModal isOpen={isBuyNow} setIsOpen={setIsBuyNow} productId={productId} />
+
       {showSigninModal && (
         <SigninModal
           show={showSigninModal}

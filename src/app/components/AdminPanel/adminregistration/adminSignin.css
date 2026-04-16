@@ -1,5 +1,5 @@
 .admin_bg {
-    background-image: url('/main_pics/bg1.jpg');
+    background-image: url('/main_pics/bg7.avif');
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
@@ -9,7 +9,7 @@
 .admin_formdiv{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 10);
     /* blurty effect */
-    backdrop-filter: blur(0.7px);
+    backdrop-filter: blur(3.5px);
     background-color: rgba(255, 255, 255, 0);
     border-radius: 4px;
 }

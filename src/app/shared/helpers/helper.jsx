@@ -75,16 +75,6 @@ export const LoadingSpinner = () => {
   );
 };
 
-// Size options
-export const sizeOptions = [
-  { value: 'XS', label: 'XS' },
-  { value: 'S', label: 'S' },
-  { value: 'M', label: 'M' },
-  { value: 'L', label: 'L' },
-  { value: 'XL', label: 'XL' },
-  { value: 'XXL', label: 'XXL' },
-];
-
 // Custom styles for the select dropdown
 export const customStyles = {
   control: (provided) => ({
@@ -113,7 +103,7 @@ export const customStyles = {
 };
 
 // Custom Select component
-export const CustomMultiSelect = ({ value, onChange, options = sizeOptions, placeholder = '' }) => {
+export const CustomMultiSelect = ({ value, onChange, placeholder = '' }) => {
   return (
       <Select
           isMulti

@@ -31,17 +31,17 @@ export const CartProvider = ({ children }) => {
     setCartCount(prevCount => prevCount + 1);
   };
 
-  const removeFromCart = (productId, size) => {
-    const updatedCart = cartItems.filter(item => !(item.productId === productId && item.size === size));
+  const removeFromCart = (productId) => {
+    const updatedCart = cartItems.filter(item => !(item.productId === productId));
     setCartItems(updatedCart);
     setCartCount(updatedCart.length);
   };
 
-  const updateCartItemQuantity = async (productId, size, newQuantity) => {
-      await UserAPIService.addToCart({ userId, productId, size, quantity: newQuantity });
+  const updateCartItemQuantity = async (productId, newQuantity) => {
+      await UserAPIService.addToCart({ userId, productId, quantity: newQuantity });
       setCartItems(prevItems =>
         prevItems.map(item =>
-          item.productId === productId && item.size === size
+          item.productId === productId
             ? { ...item, quantity: newQuantity }
             : item
         )

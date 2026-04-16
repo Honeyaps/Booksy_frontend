@@ -91,33 +91,6 @@ export const ViewProduct = ({productId}) => {
                 className="img-fluid border border-dark my-3"
                 style={{ width: "13%" }}
               />
-              <h6>SIZES</h6>
-              <div className="row d-flex gap-2 my-3 mx-1">
-                <button className="col-md-2 border border-dark p-2 text-center bg-transparent">
-                  XXS
-                </button>
-                <button className="col-md-2 border border-dark p-2 text-center bg-transparent">
-                  XS
-                </button>
-                <button className="col-md-2 border border-dark p-2 text-center bg-transparent">
-                  S
-                </button>
-                <button className="col-md-2 border border-dark p-2 text-center bg-transparent">
-                  M
-                </button>
-                <button className="col-md-2 border border-dark p-2 text-center bg-transparent">
-                  L
-                </button>
-                <button className="col-md-2 border border-dark p-2 text-center bg-transparent">
-                  XL
-                </button>
-                <button className="col-md-2 border border-dark p-2 text-center bg-transparent">
-                  XXL
-                </button>
-                <button className="col-md-2 border border-dark p-2 text-center bg-transparent">
-                  XXXL
-                </button>
-              </div>
               <h6 className="mt-3">DESCRIPTION</h6>
               <p>
                 {product?.description}

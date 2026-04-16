@@ -12,18 +12,16 @@ export const Newin = () => {
     const [allProducts, setAllProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [priceRange, setPriceRange] = useState(''); 
-    const [size, setSize] = useState('');
+    const [priceRange, setPriceRange] = useState('');
     const navigate = useNavigate();
 
-    const fetchProducts = async (category = activeCategory, priceRangeValue = priceRange, sizeValue = size) => {
+    const fetchProducts = async (category = activeCategory, priceRangeValue = priceRange) => {
         setLoading(true);
         
         try {
             const response = await UserAPIService.getProducts({
                 category: category === 'All' ? '' : category,
                 priceRange: priceRangeValue ,
-                size: sizeValue
             });
             const products = response.data.product;
             setAllProducts(products); 
@@ -48,14 +46,10 @@ export const Newin = () => {
     const handleSortChange = (e) => {
         const selectedPriceRange = e.target.value;
         setPriceRange(selectedPriceRange);
-        fetchProducts(activeCategory, selectedPriceRange, size);
+        fetchProducts(activeCategory, selectedPriceRange);
     };
 
-    const handleSizeChange = (e) => {
-        const selectedSize = e.target.value;
-        setSize(selectedSize);
-        fetchProducts(activeCategory, priceRange, selectedSize);
-    };
+
 
     const handleProductClick = (productId) => {
         navigate(`/product-view/${productId}`); 
@@ -83,18 +77,6 @@ export const Newin = () => {
 
                 {/* Filter and Sort Options */}
                 <div className="row">
-                    {/* <div className="col-md-6 d-flex">
-                        <p>Filter :</p>
-                        <select className="ms-3 p-2 border filter_box" vlue={size} onChange={handleSizeChange}>
-                            <option selected value="">Size</option>
-                            <option value="XXL">XXL</option>
-                            <option value="XL">XL</option>
-                            <option value="L">L</option>
-                            <option value="M">M</option>
-                            <option value="S">S</option>
-                            <option value="XS">XS</option>
-                        </select>
-                    </div> */}
                     <div className="col-md-12 d-flex">
                         <p>Sort By :</p>
                         <select className="ms-3 p-2 border filter_box" value={priceRange} onChange={handleSortChange}>

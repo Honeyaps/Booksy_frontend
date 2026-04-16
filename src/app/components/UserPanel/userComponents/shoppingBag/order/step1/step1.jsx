@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { LoadingButton } from '../../../../../../shared/helpers/helper';
 
-export const Step1 = ({ productId, size }) => {
+export const Step1 = ({ productId }) => {
     const [formData, setFormData] = useState({
         email: "",
         mobileno: "",
@@ -51,7 +51,7 @@ export const Step1 = ({ productId, size }) => {
         try {
             if (productId) {
                 // If productId exists, proceed with buyNow API call
-                await UserAPIService.buyNow({ productId, size, address, mobileno, userId });
+                await UserAPIService.buyNow({ productId, address, mobileno, userId });
                 toast.success("Order placed successfully");
             } else {
                 // If product does not exist, place order via placeCartOrder API

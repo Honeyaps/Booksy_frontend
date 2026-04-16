@@ -9,7 +9,7 @@ export const SpecialCard = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const limit = 4;
+  const limit = 50;
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -54,7 +54,7 @@ export const SpecialCard = () => {
       </div>
 
       <h1 className='mt-5 text-center'>
-        Discover Stories That Inspire, Educate & Transform Your Mind 📚
+        Discover Stories That Inspire, Educate & Transform Your Mind 
       </h1>
       <p className="text-center text-muted mt-2">
         Explore our curated collection of bestsellers, timeless classics, and must-read books.
@@ -70,7 +70,7 @@ export const SpecialCard = () => {
             <img
               src={product.card_pic}
               alt={product.name}
-              className="img-fluid"
+              className="img-fluid w-100 h-100"
             />
             <h6>{product.productName}</h6>
             <p className="price">{product.price} RS</p>
@@ -78,6 +78,9 @@ export const SpecialCard = () => {
         ))}
 
       </div>
+       <h1 className='mt-5 '>
+               Explore Our Book Collection
+            </h1>
     </div>
   );
 };

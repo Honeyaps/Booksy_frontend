@@ -42,7 +42,7 @@ export const AdminSignin = () => {
         <div className='container-fluid d-flex align-items-center vh-100 admin_bg'>
             <div className="col-md-4 border px-5 py-4 mx-auto border-light admin_formdiv">
             <form onSubmit={handleSubmit}>
-                <p className='text-center text-white'>Admin — Manage products, orders, and user settings securely</p>
+                <p className='text-center text-white'>Admin — Manage books, orders, and user settings securely</p>
                 <div className="mb-3">
                     <label htmlFor="email" className="col-md-12 text-white">
                         Email <span className='text-danger'>*</span>
@@ -79,7 +79,7 @@ export const AdminSignin = () => {
                     Sign in
                 </LoadingButton>
 
-                <p className='text-center text-white mt-3'>For any queries, please contact us at: +91 78149-98055</p>
+                <p className='text-center text-white mt-3'>For any queries, please contact us at xyz@booky.com</p>
               
             </form>
         </div>

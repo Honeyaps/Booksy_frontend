@@ -11,13 +11,11 @@ export const EditProduct = ({ productId, setActiveComponent }) => {
     description: '',
     price: 0,
     category: '',
-    size: [],
     images: [],
   });
   const [card_pic, setCardPic] = useState(null);
   const [images, setImages] = useState(Array(4).fill(null)); 
   const [loading, setLoading] = useState(true);
-  const [selectedSizes, setSelectedSizes] = useState([]);
 
 
   useEffect(() => {
@@ -29,15 +27,8 @@ export const EditProduct = ({ productId, setActiveComponent }) => {
           console.log("Product:",product);
 
           setProductDetails(product);
-
-          const sizesArray = product.size.map(size => ({
-            value: size,
-            label: size
-          }));
-          setSelectedSizes(sizesArray); 
-        } else {
-          toast.error('Product not found.');
         }
+         
       } catch (err) {
         console.error('Error fetching product details:', err);
         toast.error('Failed to load product details. Please try again later.');
@@ -81,7 +72,6 @@ export const EditProduct = ({ productId, setActiveComponent }) => {
     formData.append("description", productDetails.description);
     formData.append("price", productDetails.price);
     formData.append("category", productDetails.category);
-    formData.append("size", selectedSizes.map(option => option.value));
     formData.append("id", productId);
   
     // Append the images if any
@@ -180,17 +170,6 @@ export const EditProduct = ({ productId, setActiveComponent }) => {
                   name="category"
                   value={productDetails.category}
                   onChange={handleInputChange}
-                  required
-                />
-              </div>
-
-              <div className="mb-3">
-                <label className="col-md-12 text-start">
-                  Size <span className="text-danger">*</span>
-                </label>
-                <CustomMultiSelect
-                  value={selectedSizes} 
-                  onChange={setSelectedSizes}
                   required
                 />
               </div>

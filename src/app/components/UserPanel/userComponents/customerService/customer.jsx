@@ -33,7 +33,7 @@ export const Customer = () => {
                     </div>
 
                     <button type='submit' className='form_btn mt-2 w-100'>
-                        Sign in
+                        Submit
                     </button>
                 </form>
                 <p className="mt-5">For questions regarding your personal data, and instructions on how to access or delete your stored information, please visit our Privacy Notice.</p>

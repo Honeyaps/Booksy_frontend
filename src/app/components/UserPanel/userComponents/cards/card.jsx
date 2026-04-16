@@ -33,13 +33,10 @@ export const Card = () => {
 
     return (
         <div className="container-fluid mt-5">
-            <h1>
-               Explore Our Book Collection
-            </h1>
             <div className="row">
                 {products.map((product) => (
                     <div 
-                    className="col-lg-2 col-md-3 col-sm-4 col-6 mb-4"
+                    className="col-lg-2 col-md-3 col-sm-4 col-6 mb-4 mt-4"
                     key={product.id} 
                     onClick={() => handleProductClick(product._id)} 
                     style={{ cursor: 'pointer' }} 
@@ -47,14 +44,14 @@ export const Card = () => {
                     <img
                         src={product.card_pic}
                         alt="styles"
-                        className="card_img img-fluid"
+                        className="card_img img-fluid w-100 h-100"
                     />
                     <h6>{product.productName}</h6>
                     <p className="price">₹ {product.price}</p>
                 </div>
                     
                 ))}
-                <div className="text-end">
+                <div className="text-end col-md-12 mt-4">
                 <a href="/newin" className="ext-decoration-none text-dark">
                     View All <IoArrowForwardSharp className="mb-1 mx-1 nav-icon" />
                 </a>

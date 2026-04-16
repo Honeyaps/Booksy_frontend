@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { AddConfirmationAlert , CustomMultiSelect, LoadingButton} from "../../../../../shared/helpers/helper";
+import { AddConfirmationAlert, CustomMultiSelect, LoadingButton } from "../../../../../shared/helpers/helper";
 import AdminAPIService from '../../../../../services/admin_service';
 import { toast } from 'sonner';
 import { Alert } from 'react-bootstrap';
 
-export const AddProduct = ({ setActiveComponent}) => {
+export const AddProduct = ({ setActiveComponent }) => {
     const [productName, setProductName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [category, setCategory] = useState('');
-    const [size, setSize] = useState([]);
     const [card_pic, setCardPic] = useState(null);
     const [images, setImages] = useState(Array(4).fill(null));
-    const [isLoading, setIsLoading] = useState(false); 
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleInputChange = (e, setter) => setter(e.target.value);
 
@@ -24,7 +23,7 @@ export const AddProduct = ({ setActiveComponent}) => {
     };
 
     const validateForm = () => {
-        if (!productName || !description || !price || !category || !size || !card_pic || !images) {
+        if (!productName || !description || !price || !category || !card_pic || !images) {
             toast.error('Please fill all the required fields');
             return false;
         }
@@ -33,7 +32,7 @@ export const AddProduct = ({ setActiveComponent}) => {
     const handleAddProduct = async (e) => {
         e.preventDefault();
 
-       
+
 
         setIsLoading(true);
 
@@ -42,18 +41,17 @@ export const AddProduct = ({ setActiveComponent}) => {
         formData.append('description', description);
         formData.append('price', price);
         formData.append('category', category);
-        formData.append('size', size.map(item => item.value).join(','));
         if (card_pic) {
             formData.append('card_pic', card_pic);
         }
         images.forEach((img) => {
             if (img) {
-                formData.append('images', img); 
+                formData.append('images', img);
             }
         });
 
-         // 🔥 DEBUG
-    console.log([...formData.entries()]);
+        // 🔥 DEBUG
+        console.log([...formData.entries()]);
 
         try {
             const response = await AdminAPIService.AddProduct(formData);
@@ -62,8 +60,8 @@ export const AddProduct = ({ setActiveComponent}) => {
             resetForm();
             setActiveComponent('Products');
         } catch (error) {
-             console.error(error);
-        toast.error(error?.response?.data?.message || 'Error while adding product');
+            console.error(error);
+            toast.error(error?.response?.data?.message || 'Error while adding product');
         } finally {
             setIsLoading(false);
         }
@@ -74,7 +72,6 @@ export const AddProduct = ({ setActiveComponent}) => {
         setDescription('');
         setPrice('');
         setCategory('');
-        setSize([]);
         setCardPic(null);
         setImages(Array(4).fill(null));
     };
@@ -146,17 +143,6 @@ export const AddProduct = ({ setActiveComponent}) => {
                         </div>
 
                         <div className="mb-3">
-                            <label className="col-md-12 text-start">
-                                Size <span className="text-danger">*</span>
-                            </label>
-                            <CustomMultiSelect
-                                value={size}
-                                onChange={setSize}
-                                required
-                            />
-                        </div>
-
-                        <div className="mb-3">
                             <label htmlFor="card_pic" className="col-md-12 text-start">
                                 Product Image <span className="text-danger">*</span>
                             </label>
@@ -190,13 +176,13 @@ export const AddProduct = ({ setActiveComponent}) => {
                         </div>
                         <Alert variant="info"><strong>NOTE :</strong> Please upload images smaller than 500KB.</Alert>
 
-                       <button
-  type="submit"
-  className="form_btn mt-2 px-5 rounded-0"
-  disabled={isLoading}
->
-  {isLoading ? "Saving..." : "Save"}
-</button>
+                        <button
+                            type="submit"
+                            className="form_btn mt-2 px-5 rounded-0"
+                            disabled={isLoading}
+                        >
+                            {isLoading ? "Saving..." : "Save"}
+                        </button>
                     </form>
                 </div>
             </div>
