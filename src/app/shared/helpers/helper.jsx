@@ -12,7 +12,7 @@ export const DeleteConfirmationAlert = ({ text, onConfirm }) => {
       text,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#333333',
+      confirmButtonColor: '#b04ede',
       cancelButtonColor: '',
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'No, keep it',
@@ -31,7 +31,7 @@ export const DeleteConfirmationAlert = ({ text, onConfirm }) => {
         text: message || 'Product added successfully!',
         icon: 'success',
         confirmButtonText: 'OK',
-        confirmButtonColor: '#333333',
+        confirmButtonColor: '#b04ede',
       });
   };
 
@@ -80,12 +80,12 @@ export const customStyles = {
   control: (provided) => ({
       ...provided,
       border: '1px solid #333333',
-      borderRadius: '0',
+      borderRadius: '10px',
   }),
   multiValue: (provided) => ({
       ...provided,
       backgroundColor: '#e9ecef',
-      borderRadius: '0.25rem',
+      borderRadius: '10px',
   }),
   multiValueLabel: (provided) => ({
       ...provided,
@@ -103,7 +103,7 @@ export const customStyles = {
 };
 
 // Custom Select component
-export const CustomMultiSelect = ({ value, onChange, placeholder = '' }) => {
+export const CustomMultiSelect = ({ value, onChange, options, placeholder = '' }) => {
   return (
       <Select
           isMulti

@@ -8,10 +8,18 @@ export const AddProduct = ({ setActiveComponent }) => {
     const [productName, setProductName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
-    const [category, setCategory] = useState('');
+    const [category, setCategory] = useState([]);
     const [card_pic, setCardPic] = useState(null);
-    const [images, setImages] = useState(Array(4).fill(null));
+    const [images, setImages] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+
+    const categoryOptions = [
+        { value: "Fiction", label: "Fiction" },
+        { value: "Non-Fiction", label: "Non-Fiction" },
+        { value: "Academic", label: "Academic" },
+        { value: "Children", label: "Children" },
+        { value: "Technology", label: "Technology" }
+    ];
 
     const handleInputChange = (e, setter) => setter(e.target.value);
 
@@ -32,26 +40,22 @@ export const AddProduct = ({ setActiveComponent }) => {
     const handleAddProduct = async (e) => {
         e.preventDefault();
 
-
-
         setIsLoading(true);
 
         const formData = new FormData();
         formData.append('productName', productName);
         formData.append('description', description);
         formData.append('price', price);
-        formData.append('category', category);
+        formData.append(
+            "category",
+            JSON.stringify(category.map(item => item.value))
+        );
         if (card_pic) {
             formData.append('card_pic', card_pic);
         }
-        images.forEach((img) => {
-            if (img) {
-                formData.append('images', img);
-            }
-        });
-
-        // 🔥 DEBUG
-        console.log([...formData.entries()]);
+        if (images) {
+            formData.append('image', images);
+        }
 
         try {
             const response = await AdminAPIService.AddProduct(formData);
@@ -73,14 +77,14 @@ export const AddProduct = ({ setActiveComponent }) => {
         setPrice('');
         setCategory('');
         setCardPic(null);
-        setImages(Array(4).fill(null));
+        setImages(null);
     };
 
     return (
         <div className="container-fluid">
             <div className="row mb-2">
                 <div className="col-md-12 card rounded-0 shadow p-3">
-                    <h3 className="dashboard-title">Add Product</h3>
+                    <h3 className="dashboard-title">Add Book</h3>
                 </div>
             </div>
 
@@ -132,19 +136,17 @@ export const AddProduct = ({ setActiveComponent }) => {
                             <label htmlFor="category" className="col-md-12 text-start">
                                 Category <span className="text-danger">*</span>
                             </label>
-                            <input
-                                type="text"
-                                className="col-md-12"
-                                id="category"
+                            <CustomMultiSelect
                                 value={category}
-                                onChange={(e) => handleInputChange(e, setCategory)}
-                                required
+                                onChange={setCategory}
+                                options={categoryOptions}
+                                placeholder="Select Categories"
                             />
                         </div>
 
                         <div className="mb-3">
                             <label htmlFor="card_pic" className="col-md-12 text-start">
-                                Product Image <span className="text-danger">*</span>
+                                Book Image <span className="text-danger">*</span>
                             </label>
                             <input
                                 type="file"
@@ -156,29 +158,23 @@ export const AddProduct = ({ setActiveComponent }) => {
                         </div>
 
                         <div className="row">
-                            {Array(4).fill().map((_, index) => (
-                                <div className="mb-3 col-md-6" key={index}>
-                                    <label className="col-md-12 text-start">
-                                        Additional Image {index + 1} <span className="text-danger">*</span>
-                                    </label>
-                                    <input
-                                        type="file"
-                                        className="col-md-12 p-2"
-                                        onChange={(e) => {
-                                            const updatedImages = [...images];
-                                            updatedImages[index] = e.target.files[0];
-                                            setImages(updatedImages);
-                                        }}
-                                        required
-                                    />
-                                </div>
-                            ))}
+                            <div className="mb-3">
+                                <label className="col-md-12 text-start">
+                                    Additional Image <span className="text-danger">*</span>
+                                </label>
+                                <input
+                                    type="file"
+                                    className="col-md-12 p-2"
+                                    onChange={(e) => setImage(e.target.files[0])}
+                                    required
+                                />
+                            </div>
                         </div>
                         <Alert variant="info"><strong>NOTE :</strong> Please upload images smaller than 500KB.</Alert>
 
                         <button
                             type="submit"
-                            className="form_btn mt-2 px-5 rounded-0"
+                            className="form_btn mt-2 px-5"
                             disabled={isLoading}
                         >
                             {isLoading ? "Saving..." : "Save"}

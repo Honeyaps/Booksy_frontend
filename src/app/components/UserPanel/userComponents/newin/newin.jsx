@@ -62,7 +62,7 @@ export const Newin = () => {
                 {/* Category Filter Buttons */}
                 <div className="row">
                     <div className="d-flex text-center justify-content-center flex-wrap gap-5 align-items-center mb-4">
-                        {["All", "Ladies", "Men", "Baby", "Kids", "Sport"].map((category) => (
+                        {["All", "Fiction", "Non-Fiction", "Academic", "Children","Technology"].map((category) => (
                             <a
                                 key={category}
                                 href="#"

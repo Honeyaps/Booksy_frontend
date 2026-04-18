@@ -13,3 +13,9 @@ h1{
     object-fit: cover; 
     border-radius: 20px;
 }
+
+.cardView_imgs {
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}

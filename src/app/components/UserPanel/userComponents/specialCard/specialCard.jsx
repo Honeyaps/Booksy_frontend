@@ -4,6 +4,7 @@ import UserAPIService from '../../../../services/user_service';
 import { toast } from 'sonner';
 import { LoadingSpinner } from '../../../../shared/helpers/helper';
 import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 export const SpecialCard = () => {
   const [products, setProducts] = useState([]);
@@ -44,17 +45,66 @@ export const SpecialCard = () => {
   return (
     <div className="container-fluid mt-4">
       <div className="row">
-        <div className="col-md-12 ">
-          <img
-            src="/main_pics/crousel_pic1.jpg"
-            alt="styles"
-            className="img-fluid crousel_pic"
-          />
+        <div
+          id="productCarousel"
+          className="carousel slide"
+          data-bs-ride="carousel"
+        >
+          <div className="carousel-inner">
+
+            {/* Slide 1 */}
+            <div className="carousel-item active">
+              <img
+                src="/main_pics/c1.png"
+                className="d-block w-100 cardView_imgs"
+                alt="Product 1"
+              />
+            </div>
+
+            {/* Slide 2 */}
+            <div className="carousel-item">
+              <img
+                src="/main_pics/c2.png"
+                className="d-block w-100 cardView_imgs"
+                alt="Product 2"
+              />
+            </div>
+
+            {/* Slide 3 */}
+            <div className="carousel-item">
+              <img
+                src="/main_pics/c3.png"
+                className="d-block w-100 cardView_imgs"
+                alt="Product 3"
+              />
+            </div>
+
+          </div>
+
+          {/* Previous Button */}
+          <button
+            className="carousel-control-prev"
+            type="button"
+            data-bs-target="#productCarousel"
+            data-bs-slide="prev"
+          >
+            <span className="carousel-control-prev-icon"></span>
+          </button>
+
+          {/* Next Button */}
+          <button
+            className="carousel-control-next"
+            type="button"
+            data-bs-target="#productCarousel"
+            data-bs-slide="next"
+          >
+            <span className="carousel-control-next-icon"></span>
+          </button>
         </div>
       </div>
 
       <h1 className='mt-5 text-center'>
-        Discover Stories That Inspire, Educate & Transform Your Mind 
+        Discover Stories That Inspire, Educate & Transform Your Mind
       </h1>
       <p className="text-center text-muted mt-2">
         Explore our curated collection of bestsellers, timeless classics, and must-read books.
@@ -78,9 +128,10 @@ export const SpecialCard = () => {
         ))}
 
       </div>
-       <h1 className='mt-5 '>
-               Explore Our Book Collection
-            </h1>
+      <br />
+      <h1 className='mt-5'>
+        Explore Our Book Collection
+      </h1>
     </div>
   );
 };

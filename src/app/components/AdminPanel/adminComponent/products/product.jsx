@@ -8,7 +8,8 @@ import UserAPIService from '../../../../services/user_service';
 import { CiSearch } from "react-icons/ci";
 import { toast } from 'sonner';
 import AdminAPIService from '../../../../services/admin_service';
-import { IoMdEye } from "react-icons/io";
+import { IoMdEye,IoIosRefresh  } from "react-icons/io";
+import { LuRefreshCcw } from "react-icons/lu";
 
 
 export const Products = ({ setActiveComponent }) => {
@@ -32,10 +33,11 @@ export const Products = ({ setActiveComponent }) => {
   };
 
   useEffect(() => {
-   
+
 
     fetchProducts();
-  }, [page]); 
+  }, [page]);
+  
 
   const handleAddProductClick = (productId) => {
     setActiveComponent('AddProduct', productId);
@@ -57,13 +59,13 @@ export const Products = ({ setActiveComponent }) => {
           const response = await AdminAPIService.deleteProduct({ id: productId });
           if (response.status === 1) {
             toast.success(`${productName || 'Product'} has been deleted successfully.`);
-            setProducts((prevProducts) => prevProducts.filter((product) => product._id !== productId)); 
+            setProducts((prevProducts) => prevProducts.filter((product) => product._id !== productId));
             if (products.length === 1 && page > 1) {
               setPage(prevPage => prevPage - 1); // Go to the previous page if this was the last product on the current page
             }
-            
+
             // Fetch products again to ensure the list is up-to-dat
-            await fetchProducts(); 
+            await fetchProducts();
           } else {
             toast.error('Failed to delete product.');
           }
@@ -92,19 +94,25 @@ export const Products = ({ setActiveComponent }) => {
     setLoading(true);
     try {
       const response = await UserAPIService.getProducts({
-        limit,              
-        page: 1,            
-        productName: searchTerm 
+        limit,
+        page: 1,
+        category: searchTerm
       });
-      setProducts(response.data.product); 
-      setPage(1); 
+      setProducts(response.data.product);
+      setPage(1);
     } catch (err) {
       console.error('Error searching products:', err);
       toast.error('Error searching products. Please try again later.');
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
+
+  const handleRefresh = () => {
+  setSearchTerm('');   // clear input
+  setPage(1);          // reset page (important)
+  fetchProducts();     // fetch all products
+};
 
   return (
     <div className="container-fluid">
@@ -122,6 +130,9 @@ export const Products = ({ setActiveComponent }) => {
             />
             <button className='form_btn px-2' onClick={handleSearch}>
               <CiSearch className='nav-icon fs-3' />
+            </button>
+            <button className='form_btn px-2 mx-2' onClick={handleRefresh}>
+              <IoIosRefresh  className='nav-icon fs-3' />
             </button>
           </div>
           <div>
@@ -156,7 +167,7 @@ export const Products = ({ setActiveComponent }) => {
                   <thead className="thead-dark">
                     <tr>
                       <th>Sr.No</th>
-                      <th>Product Name</th>
+                      <th>Book Name</th>
                       <th>Category</th>
                       <th>Price</th>
                       <th>Actions</th>
@@ -168,10 +179,15 @@ export const Products = ({ setActiveComponent }) => {
                         <tr key={product._id}>
                           <td>{index + 1 + (page - 1) * limit}</td>
                           <td>{product.productName}</td>
-                          <td>{product.category}</td>
-                          <td>RS. {product.price}</td>
                           <td>
-                            <button className="bg-transparent border-0" onClick={() => handleEditProduct  (product._id)}>
+                            {Array.isArray(product.category)
+                              ? product.category.join(", ")
+                              : JSON.parse(product.category || "[]").join(", ")
+                            }
+                          </td>
+                          <td>₹ {product.price}</td>
+                          <td>
+                            <button className="bg-transparent border-0" onClick={() => handleEditProduct(product._id)}>
                               <GrEdit className='nav-icon' />
                             </button>
                             <button

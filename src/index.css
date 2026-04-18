@@ -3,6 +3,7 @@ body{
     padding: 0;
     box-sizing: border-box;
     background-color: rgb(245, 255, 253);
+     font-family: 'Inter', sans-serif;
 }
 
 p,label{
@@ -20,6 +21,7 @@ select{
     height: 45px;
     border: 1px solid grey;
     padding-left: 10px;
+    border-radius: 10px;
 }
 
 textarea:focus,
@@ -36,35 +38,30 @@ a{
 
 .form_btn{
     height: 45px;
-    background-color: rgb(50, 50, 50);
+    background-color: #ab3dea;
     border: none;
+    border-radius: 10px;
     color: white;
     font-weight: bold;
 }
 
 .form_btn:hover{
-    background-color: rgb(0, 0, 0);
+    background-color: #bd70f4;
 }
 
 .search_bar {
     border: none;
-    border-bottom: 1px solid grey;
     background-color: rgb(246, 255, 253);
     outline: none; 
 }
 
 .search_bar:focus {
     border-bottom: 1px solid grey;
+    border-radius: 0%;
     outline: none;
 }
 
 
-
-/* .modal{
-    overflow-y: scroll;
-    overflow-x: hidden;
-    height: 80vh;
-} */
 
 
 /* admin portal */
@@ -95,12 +92,12 @@ a{
   }
   
   .sidebar ul li:hover {
-    background-color: #333333;
+    background-color: #ab3dea;
     color: #ffffff;
   }
   
   .sidebar ul li.active {
-    background-color: #333333;
+    background-color: #ab3dea;
     color: #ffffff;
   }
   

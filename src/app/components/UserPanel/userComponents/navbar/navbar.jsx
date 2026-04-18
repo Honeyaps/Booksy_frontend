@@ -13,7 +13,7 @@ import { GoSearch } from "react-icons/go";
 import { MdOutlineLocalOffer } from "react-icons/md";
 import "./navbar.css";
 import { useCart } from "../../../../services/common_service";
-import { LuUser2 } from "react-icons/lu";
+import { LuUser } from "react-icons/lu";
 import UserAPIService from "../../../../services/user_service";
 import { IoIosMore } from "react-icons/io";
 import { LiaLuggageCartSolid } from "react-icons/lia";
@@ -85,8 +85,8 @@ export const Navbar = () => {
     <div>
 
       {/* Desktop Navbar */}
-      <div className="container fullscreen_view">
-        <div className="row mt-4">
+      <div className="container-fluid p-4 fullscreen_view">
+        <div className="row">
 
           <div className="col-md-4">
             <div className="justify-content-start d-flex">
@@ -96,7 +96,7 @@ export const Navbar = () => {
 
 
               <a className=" text-dark" onClick={handleShowSignin}>
-                <LuUser2 className="nav-icon" /> Sign in
+                <LuUser className="nav-icon" /> Sign in
               </a>
 
             </div>

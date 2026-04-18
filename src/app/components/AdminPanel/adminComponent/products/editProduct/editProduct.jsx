@@ -10,25 +10,53 @@ export const EditProduct = ({ productId, setActiveComponent }) => {
     productName: '',
     description: '',
     price: 0,
-    category: '',
+    category: [],
     images: [],
   });
   const [card_pic, setCardPic] = useState(null);
-  const [images, setImages] = useState(Array(4).fill(null)); 
+  const [images, setImages] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const categoryOptions = [
+    { value: "Fiction", label: "Fiction" },
+    { value: "Non-Fiction", label: "Non-Fiction" },
+    { value: "Academic", label: "Academic" },
+    { value: "Children", label: "Children" },
+    { value: "Technology", label: "Technology" }
+  ];
 
 
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
         const response = await UserAPIService.getProducts({ productId });
+
         if (response && response.data && response.data.product.length > 0) {
           const product = response.data.product[0];
-          console.log("Product:",product);
+          let categoriesArray = [];
 
-          setProductDetails(product);
+if (Array.isArray(product.category)) {
+  categoriesArray = product.category;
+} else if (typeof product.category === "string") {
+  try {
+    categoriesArray = JSON.parse(product.category);
+  } catch {
+    categoriesArray = [product.category]; // fallback
+  }
+}
+
+          const formattedCategories = categoriesArray.map(cat => ({
+            value: cat,
+            label: cat
+          }));
+
+          // ✅ set updated product details
+          setProductDetails({
+            ...product,
+            category: formattedCategories
+          });
         }
-         
+
       } catch (err) {
         console.error('Error fetching product details:', err);
         toast.error('Failed to load product details. Please try again later.');
@@ -55,39 +83,21 @@ export const EditProduct = ({ productId, setActiveComponent }) => {
     }
   };
 
-  const handleAdditionalImageChange = (e, index) => {
-    const file = e.target.files[0];
-    if (file) {
-      const updatedImages = [...images];
-      updatedImages[index] = file;
-      setImages(updatedImages);
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const formData = new FormData();
     formData.append("productName", productDetails.productName);
     formData.append("description", productDetails.description);
     formData.append("price", productDetails.price);
-    formData.append("category", productDetails.category);
+    formData.append("category", JSON.stringify(productDetails.category.map(item => item.value)));
     formData.append("id", productId);
-  
-    // Append the images if any
-    if (card_pic) {
-      formData.append("card_pic", card_pic);
-    }
-    images.forEach((img) => {
-      if (img) {
-        formData.append("images", img); 
-      }
-    });
+    formData.append("card_pic", card_pic);
+    formData.append("images", images);
 
-    console.log("Form data:", formData);
-  
     try {
-      const response = await AdminAPIService.updateProduct(formData, {id:productId}); 
+      const response = await AdminAPIService.updateProduct(formData, { id: productId });
       if (response.status === 1) {
         AddConfirmationAlert('Product updated successfully!');
         setActiveComponent("Products");
@@ -99,13 +109,13 @@ export const EditProduct = ({ productId, setActiveComponent }) => {
       toast.error("Error updating product. Please try again later.");
     }
   };
-  
+
 
   return (
     <div className="container-fluid">
       <div className="row mb-2">
         <div className="col-md-12 card rounded-0 shadow p-3">
-          <h3 className="dashboard-title">Edit Product</h3>
+          <h3 className="dashboard-title">Edit</h3>
         </div>
       </div>
 
@@ -163,14 +173,16 @@ export const EditProduct = ({ productId, setActiveComponent }) => {
                 <label htmlFor="category" className="col-md-12 text-start">
                   Category <span className="text-danger">*</span>
                 </label>
-                <input
-                  type="text"
-                  className="col-md-12"
-                  id="category"
-                  name="category"
+                <CustomMultiSelect
                   value={productDetails.category}
-                  onChange={handleInputChange}
-                  required
+                  onChange={(selected) =>
+                    setProductDetails((prev) => ({
+                      ...prev,
+                      category: selected
+                    }))
+                  }
+                  options={categoryOptions}
+                  placeholder="Select Categories"
                 />
               </div>
 
@@ -187,18 +199,16 @@ export const EditProduct = ({ productId, setActiveComponent }) => {
               </div>
 
               <div className="row">
-                {Array(4).fill().map((_, index) => (
-                  <div className="mb-3 col-md-6" key={index}>
-                    <label className="col-md-12 text-start">
-                      Additional Image {index + 1} <span className="text-danger">*</span>
-                    </label>
-                    <input
-                      type="file"
-                      className="col-md-12 p-2"
-                      onChange={(e) => handleAdditionalImageChange(e, index)}
-                    />
-                  </div>
-                ))}
+                <div className="mb-3">
+                  <label className="col-md-12 text-start">
+                    Additional Image
+                  </label>
+                  <input
+                    type="file"
+                    className="col-md-12 p-2"
+                    onChange={(e) => setImages(e.target.files[0])}
+                  />
+                </div>
               </div>
 
               <Alert variant="info">

@@ -32,7 +32,7 @@ export const Card = () => {
     };
 
     return (
-        <div className="container-fluid mt-5">
+        <div className="container-fluid">
             <div className="row">
                 {products.map((product) => (
                     <div 
