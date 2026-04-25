@@ -3,8 +3,9 @@ import UserAPIService from "../../../../services/user_service";
 import { IoArrowForwardSharp } from "react-icons/io5";
 import './card.css';
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
-export const Card = () => {
+ const Card = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -37,7 +38,7 @@ export const Card = () => {
                 {products.map((product) => (
                     <div 
                     className="col-lg-2 col-md-3 col-sm-4 col-6 mb-4 mt-4"
-                    key={product.id} 
+                    key={product._id} 
                     onClick={() => handleProductClick(product._id)} 
                     style={{ cursor: 'pointer' }} 
                     >
@@ -61,3 +62,5 @@ export const Card = () => {
         </div>
     );
 };
+
+export default Card;

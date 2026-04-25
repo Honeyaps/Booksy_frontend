@@ -16,7 +16,7 @@ import { BuyNowModal } from "./buyNow/buyNow";
 import { OTPModal } from "../../../registration/otpverif";
 import { SignupModal } from "../../../registration/signup";
 import { SigninModal } from "../../../registration/signin";
-import { Card } from "../card";
+import  Card  from "../card";
 
 export const CardView = () => {
   const { productId } = useParams();

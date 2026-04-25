@@ -6,11 +6,11 @@ import { LoadingSpinner } from '../../../../shared/helpers/helper';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-export const SpecialCard = () => {
+ const SpecialCard = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const limit = 50;
+  const limit = 8;
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -49,6 +49,7 @@ export const SpecialCard = () => {
           id="productCarousel"
           className="carousel slide"
           data-bs-ride="carousel"
+          data-bs-interval="2000"
         >
           <div className="carousel-inner">
 
@@ -56,8 +57,9 @@ export const SpecialCard = () => {
             <div className="carousel-item active">
               <img
                 src="/main_pics/c1.png"
-                className="d-block w-100 cardView_imgs"
+                className="d-block w-100 h-100 cardView_imgs"
                 alt="Product 1"
+                loading="lazy"
               />
             </div>
 
@@ -65,8 +67,9 @@ export const SpecialCard = () => {
             <div className="carousel-item">
               <img
                 src="/main_pics/c2.png"
-                className="d-block w-100 cardView_imgs"
+                className="d-block w-100 h-100 cardView_imgs"
                 alt="Product 2"
+                loading="lazy"
               />
             </div>
 
@@ -74,8 +77,9 @@ export const SpecialCard = () => {
             <div className="carousel-item">
               <img
                 src="/main_pics/c3.png"
-                className="d-block w-100 cardView_imgs"
+                className="d-block w-100 h-100 cardView_imgs"
                 alt="Product 3"
+                loading="lazy"
               />
             </div>
 
@@ -103,7 +107,7 @@ export const SpecialCard = () => {
         </div>
       </div>
 
-      <h1 className='mt-5 text-center'>
+      {/* <h1 className='mt-5 text-center'>
         Discover Stories That Inspire, Educate & Transform Your Mind
       </h1>
       <p className="text-center text-muted mt-2">
@@ -128,10 +132,12 @@ export const SpecialCard = () => {
         ))}
 
       </div>
-      <br />
+      <br /> */}
       <h1 className='mt-5'>
         Explore Our Book Collection
       </h1>
     </div>
   );
 };
+
+export default SpecialCard;
