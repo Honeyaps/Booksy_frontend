@@ -105,6 +105,7 @@ export const CardView = () => {
       try {
         const response = await UserAPIService.getProducts({ productId });
         setProduct(response.data.product[0]);
+        console.log("Product Details", response.data.product);
       } catch (error) {
         console.error(error);
       }
@@ -150,30 +151,30 @@ export const CardView = () => {
   return (
     <>
       <Navbar />
-      <div className="container-fluid mt-4">
+      <div className="container mt-4">
         <div className="row">
-          <div className="col-md-7 product_imgs">
-            {product?.images?.length > 0 && (
+          <div className="col-md-6 product_imgs">
+            {product?.card_pic?.length > 0 && (
               <img
-                src={product.images[0]}
+                src={product.card_pic}
                 alt="Product"
-                className="cardView_imgs"
+                className="cardView_imgs img-fluid"
               />
             )}
           </div>
 
-          <div className="col-md-5 about_product">
+          <div className="col-md-6 about_product">
             <div>
               <h1>{product?.productName}</h1>
               <h6 className="price">₹ {product?.price}</h6>
-              <img
+              {/* <img
                 src={product?.card_pic}
                 alt=""
                 className="img-fluid border border-dark my-3"
                 style={{ width: "13%" }}
-              />
+              /> */}
 
-              <h6 className="mt-3">DESCRIPTION</h6>
+              <h6 className="mt-4">DESCRIPTION</h6>
               <p>{product?.description}</p>
               <h6 className="mt-4">
                 <CiTimer className="nav-icon fs-4" /> Delivery within 2-7 days

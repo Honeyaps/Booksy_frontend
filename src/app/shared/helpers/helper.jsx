@@ -5,6 +5,21 @@ import './helper.css';
 import Swal from 'sweetalert2';
 import { Spinner } from 'react-bootstrap';
 import Select from 'react-select';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+export const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // optional (remove if you want instant)
+    });
+  }, [pathname]);
+
+  return null;
+};
 
 export const DeleteConfirmationAlert = ({ text, onConfirm }) => {
     Swal.fire({

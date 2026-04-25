@@ -10,17 +10,14 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const limit = 8;
+  const limit = 4;
 
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const response = await UserAPIService.getProducts({ limit });
-        const filteredProducts = response.data.product.filter(
-          (product) => product.category === 'Homecard'
-        );
-        setProducts(filteredProducts);
+        const response = await UserAPIService.getProducts({ limit , category: "Fiction"});
+        setProducts(response.data.product);
       } catch (err) {
         console.error('Error fetching products:', err);
         toast.error('Error fetching products. Please try again later.');
@@ -107,7 +104,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
         </div>
       </div>
 
-      {/* <h1 className='mt-5 text-center'>
+      <h1 className='mt-5 text-center'>
         Discover Stories That Inspire, Educate & Transform Your Mind
       </h1>
       <p className="text-center text-muted mt-2">
@@ -117,22 +114,22 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
       <div className="row mt-4 justify-content-center">
         {products.map((product, index) => (
           <div
-            className="col-md-6 mt-5"
+            className="col-md-3 mt-5"
             key={index}
             style={{ cursor: 'pointer' }}
             onClick={() => handleProductClick(product._id)}>
             <img
               src={product.card_pic}
               alt={product.name}
-              className="img-fluid w-100 h-100"
+              className="card_img w-100 h-100"
             />
-            <h6>{product.productName}</h6>
+            <h6 className='mt-2'>{product.productName}</h6>
             <p className="price">{product.price} RS</p>
           </div>
         ))}
 
       </div>
-      <br /> */}
+      <br />
       <h1 className='mt-5'>
         Explore Our Book Collection
       </h1>

@@ -16,11 +16,13 @@ import { CardView } from './app/components/UserPanel/userComponents/cards/cardVi
 import { Toaster } from 'sonner';
 import { CartProvider } from './app/services/common_service';
 import { OrderList } from './app/components/UserPanel/userComponents/orderList/orderList';
+import { ScrollToTop } from './app/shared/helpers/helper';
 
 function App() {
   return (
     <CartProvider>
     <Router>
+          <ScrollToTop /> 
       <Toaster
         position="top-right"
         className='mx-3'

@@ -49,17 +49,26 @@ export const Favourites = () => {
                         cartItems.map((item) => (
                             <div
                                 key={item.productId}
-                                className="col-lg-2 col-md-3 col-sm-4 col-6 mb-4"
-                                onClick={() => handleProductClick(item.productId)}
+                                className="col-lg-2 col-md-3 col-sm-4 col-6"
                                 style={{ cursor: 'pointer' }}
                             >
-                                <img
-                                    src={item.productDetail.card_pic}
-                                    alt={item.productDetail.productName}
-                                    className="card_img img-fluid"
-                                />
-                                <h6>{item.productDetail.productName}</h6>
-                                <p className="price">₹ {item.productDetail.price}</p>
+                                <div
+                                    className="product-card"
+                                    onClick={() => handleProductClick(item.productId)}
+                                    style={{ cursor: "pointer" }}
+                                >
+                                    <img
+                                        src={item.productDetail?.card_pic}
+                                        alt={item.productDetail?.productName}
+                                        className="product-img"
+                                    />
+                                    <h6 className="product-title">
+                                        {item.productDetail?.productName}
+                                    </h6>
+                                    <p className="price">
+                                        ₹ {item.productDetail?.price}
+                                    </p>
+                                </div>
                             </div>
                         ))
                     ) : (

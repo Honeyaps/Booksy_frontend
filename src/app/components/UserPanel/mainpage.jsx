@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { Navbar } from './userComponents/navbar/navbar';
 import { Footer } from './userComponents/footer/footer';
+import { LoadingSpinner } from "../../shared/helpers/helper";
 
 const SpecialCard = React.lazy(() =>
   import('./userComponents/specialCard/specialCard')
@@ -13,7 +14,7 @@ export const Main = () => {
     return (
         <>
         <Navbar/>
-        <Suspense fallback={<div className="text-center mt-5">Loading...</div>}>
+        <Suspense fallback={<LoadingSpinner />}>
         <SpecialCard />
          <Card/>
       </Suspense>
