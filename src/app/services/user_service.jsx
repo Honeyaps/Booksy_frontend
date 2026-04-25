@@ -35,7 +35,7 @@ class UserAPIService {
     }
 
     static async getProducts(data) {
-      const response = await axios.post(`${API_URL}/user/getProducts`, data)
+      const response = await axios.get(`${API_URL}/user/getProducts`, data)
       return response.data;
     }
 
