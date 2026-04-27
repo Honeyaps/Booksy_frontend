@@ -48,7 +48,7 @@ const Card = () => {
                 className="product-img"
               />
               <h6 className="product-title">{product.productName}</h6>
-              <p className="price">RS {product.price}</p>
+              <p className="price">Rs. {product.price}</p>
             </div>
           </div>
 

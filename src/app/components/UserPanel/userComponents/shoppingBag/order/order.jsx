@@ -89,7 +89,7 @@ export const Order = ({ isOpen, setIsOpen }) => {
 
                             <div className='d-flex justify-content-between mt-3'>
                                 <div>Quantity : {item.quantity}</div>
-                                <div>Price : RS. {item.productDetail.price}</div>
+                                <div>Price : Rs. {item.productDetail.price}</div>
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@ export const Order = ({ isOpen, setIsOpen }) => {
                         <div className='col-md-12'>
                             <div className='d-flex justify-content-between'>
                                 <div>Subtotal</div>
-                                <div>RS. {totalPrice}</div>
+                                <div>Rs. {totalPrice}</div>
                             </div>
                             <div className='d-flex justify-content-between'>
                                 <div>Shipping</div>
@@ -112,7 +112,7 @@ export const Order = ({ isOpen, setIsOpen }) => {
                             <hr />
                             <div className='d-flex justify-content-between'>
                                 <h5>Total</h5>
-                                <h6>RS. {totalPrice}</h6>
+                                <h6>Rs. {totalPrice}</h6>
                             </div>
                         </div>
                     </div>
@@ -141,7 +141,7 @@ export const Order = ({ isOpen, setIsOpen }) => {
 
                     <div className="multistep-container">
                         {/* Step Indicators */}
-                        <div className="step-indicators">
+                        {/* <div className="step-indicators">
                             {steps.map((step, index) => (
                                 <div
                                     key={index}
@@ -150,7 +150,7 @@ export const Order = ({ isOpen, setIsOpen }) => {
                                     {index + 1}
                                 </div>
                             ))}
-                        </div>
+                        </div> */}
 
                         {/* Step Content */}
                         <div className="step-content">

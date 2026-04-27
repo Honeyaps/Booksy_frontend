@@ -34,7 +34,7 @@ export const OrderList = () => {
                 <h1 className="mt-3">Orders</h1>
                 <div className="row mt-3">
                     <div className="col-md-12 table-responsive">
-                        <table className="table shadow border">
+                        <table className="order_table table shadow">
                             <thead>
                                 <tr>
                                     <th scope="col">Order Id</th>

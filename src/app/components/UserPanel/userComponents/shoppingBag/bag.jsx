@@ -113,7 +113,7 @@ export const ShoppingBag = () => {
                                 <div className="col-md-8 p-3">
                                     <div>
                                         <h2>{item.productDetail.productName}</h2>
-                                        <h6 className="text-muted mt-3">₹ {item.productDetail.price}</h6>
+                                        <h6 className="text-muted mt-3">Rs. {item.productDetail.price}</h6>
                                     </div>
                                     {/* <div className="d-flex mt-4">
                                         <div className="">
@@ -121,7 +121,7 @@ export const ShoppingBag = () => {
                                             <p>{item.quantity}</p>
                                         </div>
                                     </div> */}
-                                    <div>
+                                    <div className="mt-5">
                                         <h6>Quantity</h6>
                                         <select name="" id="" className="form-select w-25" value={item.quantity} onChange={(e) => handleQuantityChange(item.productId, e.target.value)}>
                                             {[1, 2, 3, 4, 5].map(num => (
@@ -172,7 +172,7 @@ export const ShoppingBag = () => {
                             <p>Delivery</p>
                         </div>
                         <div className="col-md-6 text-end">
-                            <p>₹ {totalPrice}</p>
+                            <p>Rs. {totalPrice}</p>
                             <p>Free</p>
                         </div>
                     </div>
@@ -182,7 +182,7 @@ export const ShoppingBag = () => {
                             <h6>Total</h6>
                         </div>
                         <div className="col-md-6 text-end">
-                            <h6>₹ {totalPrice}</h6>
+                            <h6>Rs. {totalPrice}</h6>
                         </div>
                     </div>
                     <button className="form_btn w-100 mt-3" onClick={checkout}>Proceed to Checkout</button>

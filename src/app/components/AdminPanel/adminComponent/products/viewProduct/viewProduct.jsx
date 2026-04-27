@@ -80,7 +80,7 @@ export const ViewProduct = ({productId}) => {
           <div className="col-md-5 about_product">
             <div>
               <h1>{product?.productName}</h1>
-              <h6 className="price">₹ {product?.price}.00</h6>
+              <h6 className="price">Rs. {product?.price}</h6>
               <img
                 src={product?.card_pic}
                 alt=""

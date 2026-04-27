@@ -166,7 +166,7 @@ export const CardView = () => {
           <div className="col-md-6 about_product">
             <div>
               <h1>{product?.productName}</h1>
-              <h6 className="price">₹ {product?.price}</h6>
+              <h6 className="price">Rs. {product?.price}</h6>
               {/* <img
                 src={product?.card_pic}
                 alt=""

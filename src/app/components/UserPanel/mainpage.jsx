@@ -16,8 +16,8 @@ export const Main = () => {
         <Navbar/>
         <Suspense fallback={<LoadingSpinner />}>
         <SpecialCard />
-         <Card/>
-      </Suspense>
+        <Card/>
+        </Suspense>
        
         <br/>
         <Footer/>

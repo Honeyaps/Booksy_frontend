@@ -7,10 +7,6 @@
     z-index: 2;
   }
   
-  .logout-btn:hover {
-    background-color: #e2e6ea;
-  }
-  
   .logout-dropdown {
     background-color: #fff;
     border: 1px solid #ccc;

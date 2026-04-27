@@ -35,7 +35,7 @@
     padding: 10px;
     margin: 0 5px;
     border-radius: 50%;
-    background-color: #f0f0f0;
+    background-color: #7f7f7f;
     border: 2px solid #ddd;
     display: inline-block;
     text-align: center;
@@ -45,9 +45,9 @@
 }
 
 .step-label.active {
-    background-color: #3e3e3e;
+    background-color: #e63946;
     color: white;
-    border-color: #3d3d3d;
+    border-color: #e63946;
 }
 
 .step-content {
@@ -65,14 +65,14 @@
 .button-container button {
     padding: 10px 20px;
     border: none;
-    background-color: #1c1c1c;
+    background-color: #e63946;
     color: white;
     cursor: pointer;
     border-radius: 5px;
 }
 
 .button-container button:hover {
-    background-color: #101010;
+    background-color: #e63946;
 }
 
 .button-container .disabled {

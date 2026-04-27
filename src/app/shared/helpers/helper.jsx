@@ -27,7 +27,7 @@ export const DeleteConfirmationAlert = ({ text, onConfirm }) => {
       text,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#b04ede',
+      confirmButtonColor: '#e63946',
       cancelButtonColor: '',
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'No, keep it',
@@ -46,7 +46,7 @@ export const DeleteConfirmationAlert = ({ text, onConfirm }) => {
         text: message || 'Product added successfully!',
         icon: 'success',
         confirmButtonText: 'OK',
-        confirmButtonColor: '#b04ede',
+        confirmButtonColor: '#e63946',
       });
   };
 

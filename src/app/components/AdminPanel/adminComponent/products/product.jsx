@@ -185,7 +185,7 @@ export const Products = ({ setActiveComponent }) => {
                               : JSON.parse(product.category || "[]").join(", ")
                             }
                           </td>
-                          <td>₹ {product.price}</td>
+                          <td>Rs. {product.price}</td>
                           <td>
                             <button className="bg-transparent border-0" onClick={() => handleEditProduct(product._id)}>
                               <GrEdit className='nav-icon' />

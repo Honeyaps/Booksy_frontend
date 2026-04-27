@@ -66,7 +66,7 @@ export const Favourites = () => {
                                         {item.productDetail?.productName}
                                     </h6>
                                     <p className="price">
-                                        ₹ {item.productDetail?.price}
+                                        Rs. {item.productDetail?.price}
                                     </p>
                                 </div>
                             </div>

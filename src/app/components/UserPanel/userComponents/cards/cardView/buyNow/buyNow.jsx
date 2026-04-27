@@ -83,7 +83,7 @@ export const BuyNowModal = ({ isOpen, setIsOpen, productId }) => {
                                 </div>
                                 <div className='d-flex justify-content-between mt-3'>
                                     <div>Quantity: 1</div>
-                                    <div>Price: RS. {productDetails.price}</div>
+                                    <div>Price: Rs. {productDetails.price}</div>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +95,7 @@ export const BuyNowModal = ({ isOpen, setIsOpen, productId }) => {
                         <div className='col-md-12'>
                             <div className='d-flex justify-content-between'>
                                 <div>Subtotal</div>
-                                <div>RS. {productDetails ? productDetails.price.toFixed(2) : '0.00'}</div>
+                                <div>Rs. {productDetails ? productDetails.price.toFixed(2) : '0.00'}</div>
                             </div>
                             <div className='d-flex justify-content-between'>
                                 <div>Shipping</div>
@@ -104,7 +104,7 @@ export const BuyNowModal = ({ isOpen, setIsOpen, productId }) => {
                             <hr />
                             <div className='d-flex justify-content-between'>
                                 <h5>Total</h5>
-                                <h6>RS. {productDetails ? productDetails.price.toFixed(2) : '0.00'}</h6>
+                                <h6>Rs. {productDetails ? productDetails.price.toFixed(2) : '0.00'}</h6>
                             </div>
                         </div>
                     </div>
@@ -130,7 +130,7 @@ export const BuyNowModal = ({ isOpen, setIsOpen, productId }) => {
                     </div>
 
                     <div className="multistep-container">
-                        <div className="step-indicators">
+                        {/* <div className="step-indicators">
                             {steps.map((step, index) => (
                                 <div
                                     key={index}
@@ -139,7 +139,7 @@ export const BuyNowModal = ({ isOpen, setIsOpen, productId }) => {
                                     {index + 1}
                                 </div>
                             ))}
-                        </div>
+                        </div> */}
 
                         <div className="step-content">
                             {steps[currentStep - 1].component}

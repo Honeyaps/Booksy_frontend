@@ -75,7 +75,7 @@ export const AdminSignin = () => {
                 <LoadingButton 
                 isLoading={isLoading}
                 type='submit' 
-                className='form_btn w-100 mt-2 bg-black'>
+                className='form_btn w-100 mt-2'>
                     Sign in
                 </LoadingButton>
 
