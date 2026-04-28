@@ -5,19 +5,22 @@ import UserAPIService from "../../../../services/user_service";
 import { useState } from "react";
 import { toast } from "sonner";
 import { LoadingButton } from "../../../../shared/helpers/helper";
+import { PiEyeLight, PiEyeSlash } from "react-icons/pi";
 
 export const FPresetPass = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-    const [isLoading, setIsLoading] = useState(false); 
-    const email = location.state?.email;  
+    const [isLoading, setIsLoading] = useState(false);
+    const email = location.state?.email;
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (password !== confirmPassword) {
-           toast.error('Passwords do not match');
+            toast.error('Passwords do not match');
             return;
         }
 
@@ -39,12 +42,12 @@ export const FPresetPass = () => {
                     <p className='text-center'>
                         Enter your new password to ensure the security of your account.
                     </p>
-                    <div className="mb-3">
+                    <div className="mb-3 position-relative">
                         <label htmlFor="newPassword" className="col-md-12 text-start">
                             New Password <span className='text-danger'>*</span>
                         </label>
                         <input
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             name="newPassword"
                             className="col-md-12"
                             id="newPassword"
@@ -52,14 +55,25 @@ export const FPresetPass = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
+                        <span
+                            onClick={() => setShowPassword(!showPassword)}
+                            style={{
+                                position: "absolute",
+                                right: "15px",
+                                top: "35px",
+                                cursor: "pointer"
+                            }}
+                        >
+                            {showPassword ? <PiEyeSlash /> : <PiEyeLight />}
+                        </span>
                     </div>
 
-                    <div className="mb-3">
+                    <div className="mb-3 position-relative">
                         <label htmlFor="confirmPassword" className="col-md-12 text-start">
                             Confirm Password <span className='text-danger'>*</span>
                         </label>
                         <input
-                            type="password"
+                            type={showConfirmPassword ? "text" : "password"}
                             name="confirmPassword"
                             className="col-md-12"
                             id="confirmPassword"
@@ -67,11 +81,22 @@ export const FPresetPass = () => {
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             required
                         />
+                        <span
+                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                            style={{
+                                position: "absolute",
+                                right: "15px",
+                                top: "35px",
+                                cursor: "pointer"
+                            }}
+                        >
+                            {showPassword ? <PiEyeSlash /> : <PiEyeLight />}
+                        </span>
                     </div>
                     <LoadingButton
-                    isLoading={isLoading} 
-                    type='submit' 
-                    className='form_btn mt-2 w-100'>
+                        isLoading={isLoading}
+                        type='submit'
+                        className='form_btn mt-2 w-100'>
                         Save
                     </LoadingButton>
                 </form>

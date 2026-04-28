@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserAPIService from '../../../services/user_service';
-import { toast } from 'sonner'; 
+import { toast } from 'sonner';
 import { LoadingButton } from '../../../shared/helpers/helper';
+import { PiEyeLight, PiEyeSlash } from "react-icons/pi";
 
 export const SigninModal = ({ show, handleClose, openSignupModal }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-  const [isLoading, setIsLoading] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -61,37 +63,50 @@ export const SigninModal = ({ show, handleClose, openSignupModal }) => {
               required
             />
           </div>
-          <div className="mb-3">
+          <div className="mb-3 position-relative">
             <label htmlFor="password" className="col-md-12">
               Password <span className='text-danger'>*</span>
             </label>
+
             <input
-              type="password" 
+              type={showPassword ? "text" : "password"}
               name="password"
-              className="col-md-12"
+              className="col-md-12 pe-5"
               id="password"
               value={formData.password}
               onChange={handleOnChange}
               required
             />
+
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                position: "absolute",
+                right: "15px",
+                top: "35px",
+                cursor: "pointer"
+              }}
+            >
+              {showPassword ? <PiEyeSlash /> : <PiEyeLight />}
+            </span>
           </div>
           <div className='mb-3 text-end'>
             <a href='/request-resetpassword'>Forgot password?</a>
           </div>
 
-          <LoadingButton 
-            type='submit' 
-            isLoading={isLoading} 
+          <LoadingButton
+            type='submit'
+            isLoading={isLoading}
             onClick={handleSubmit}
             className='form_btn w-100 mt-2'
           >
             Sign in
           </LoadingButton>
-          <button   
-            type="button" 
-            onClick={openSignupModal} 
+          <button
+            type="button"
+            onClick={openSignupModal}
             className='form_btn w-100 mt-2 bg-transparent text-black border border-black'
-           >
+          >
             Become a member
           </button>
         </form>
