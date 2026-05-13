@@ -16,7 +16,8 @@ import { BuyNowModal } from "./buyNow/buyNow";
 import { OTPModal } from "../../../registration/otpverif";
 import { SignupModal } from "../../../registration/signup";
 import { SigninModal } from "../../../registration/signin";
-import  Card  from "../card";
+import Card from "../card";
+import { FaStar } from "react-icons/fa";
 
 export const CardView = () => {
   const { productId } = useParams();
@@ -32,6 +33,9 @@ export const CardView = () => {
     username: '',
     password: '',
   });
+  const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(5);
+  const [reviews, setReviews] = useState([]);
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
@@ -101,20 +105,34 @@ export const CardView = () => {
   };
 
   useEffect(() => {
+    // Clear old data instantly
+    setProduct(null);
+    setReviews([]);
+
     const fetchData = async () => {
       try {
-        const response = await UserAPIService.getProducts({ productId });
-        setProduct(response.data.product[0]);
-        console.log("Product Details", response.data.product);
+        // Product API
+        const productResponse = await UserAPIService.getProducts({
+          productId,
+        });
+
+        setProduct(productResponse.data.product[0]);
+
+        // Reviews API
+        const reviewResponse = await UserAPIService.getAllReviews({
+          productId,
+        });
+
+        setReviews(reviewResponse.data.product || []);
+
       } catch (error) {
         console.error(error);
+        setReviews([]);
       }
     };
 
     fetchData();
   }, [productId]);
-
-
 
 
   const handleAddToCart = async () => {
@@ -143,6 +161,45 @@ export const CardView = () => {
     } catch (error) {
       console.error("Error while adding to cart:", error);
       toast.error(`Failed to add product to cart: ${error.message}`);
+    }
+  };
+
+
+  const handleAddReview = async (e) => {
+    e.preventDefault();
+
+    if (!token) {
+      toast.error("Please sign in to add review");
+      setShowSigninModal(true);
+      return;
+    }
+
+    try {
+      const reviewData = {
+        userId,
+        productId,
+        comment,
+        rating
+      };
+
+      const response = await UserAPIService.addReview(reviewData);
+
+      toast.success(response.message);
+
+      // Refetch updated reviews
+      const reviewResponse = await UserAPIService.getAllReviews({
+        productId,
+      });
+
+      setReviews(reviewResponse.data.product || []);
+
+      setComment("");
+      setRating(5);
+
+
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to add review");
     }
   };
 
@@ -196,15 +253,28 @@ export const CardView = () => {
                 <legend>Comments</legend>
                 <div className="row mx-0">
                   <div className="col-md-12">
-                    <form className="">
+                    <form className="" onSubmit={handleAddReview}>
                       <div className="mb-3">
                         <label htmlFor="addComment" className="col-md-12">
-                          Add a comment
+                          Add a Comment
                         </label>
                         <textarea
                           className="col-md-12"
                           id="addComment"
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}
                         ></textarea>
+                        <div className="mt-2 d-flex gap-1">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <FaStar
+                              key={star}
+                              size={25}
+                              style={{ cursor: "pointer" }}
+                              color={star <= rating ? "#ffc107" : "#e4e5e9"}
+                              onClick={() => setRating(star)}
+                            />
+                          ))}
+                        </div>
                         <div className="d-flex justify-content-end">
                           <button
                             type="submit"
@@ -214,12 +284,52 @@ export const CardView = () => {
                           </button>
                         </div>
                       </div>
-                      <div className="mb-3">
-                        <label htmlFor="name" className="col-md-12">
-                          @demoName
-                        </label>
-                        <div>Lorem ipsum</div>
-                      </div>
+                      {reviews.length > 0 ? (
+                        reviews.map((review, index) => (
+                          <div className="mb-3 border-bottom pb-3" key={index}>
+
+                            {/* Username */}
+                            <label className="col-md-12 fw-bold">
+                              @{review?.userDetail?.username}
+                            </label>
+
+                            {/* Rating */}
+                            <div className="d-flex gap-1 mb-2">
+                              {[1, 2, 3, 4, 5].map((star) => (
+                                <FaStar
+                                  key={star}
+                                  size={18}
+                                  color={star <= review.rating ? "#ffc107" : "#e4e5e9"}
+                                />
+                              ))}
+                            </div>
+
+                            {/* Comment */}
+                            <div>
+                              {review.comment?.split(" ").length > 20 ? (
+                                <>
+                                  {review.comment.split(" ").slice(0, 20).join(" ")}...
+                                  <span
+                                    style={{
+                                      color: "blue",
+                                      cursor: "pointer",
+                                      marginLeft: "5px",
+                                    }}
+                                    onClick={() => alert(review.comment)}
+                                  >
+                                    Read More
+                                  </span>
+                                </>
+                              ) : (
+                                review.comment
+                              )}
+                            </div>
+
+                          </div>
+                        ))
+                      ) : (
+                        <div>No reviews yet</div>
+                      )}
                     </form>
                   </div>
                 </div>
