@@ -36,6 +36,10 @@ export const CardView = () => {
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(5);
   const [reviews, setReviews] = useState([]);
+  const [skipReviews, setSkipReviews] = useState(0);
+  const [hasMoreReviews, setHasMoreReviews] = useState(true);
+  const [loadingReviews, setLoadingReviews] = useState(false);
+  const [expandedReview, setExpandedReview] = useState(null);
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
@@ -104,35 +108,101 @@ export const CardView = () => {
     setIsBuyNow(true);
   };
 
+  const fetchReviews = async ({
+    skip = 0,
+    limit = 2,
+    append = false,
+  } = {}) => {
+    try {
+
+      setLoadingReviews(true);
+
+      const reviewResponse =
+        await UserAPIService.getAllReviews({
+          productId,
+          skip,
+          limit,
+        });
+
+      const fetchedReviews =
+        reviewResponse.data.product || [];
+
+      const totalReviews =
+        reviewResponse.data.totalReviews || 0;
+
+      if (append) {
+        setReviews((prev) => [
+          ...prev,
+          ...fetchedReviews,
+        ]);
+      } else {
+        setReviews(fetchedReviews);
+      }
+
+      const totalLoaded =
+        append
+          ? reviews.length + fetchedReviews.length
+          : fetchedReviews.length;
+
+      setHasMoreReviews(totalLoaded < totalReviews);
+
+    } catch (error) {
+      console.error(error);
+      setReviews([]);
+    } finally {
+      setLoadingReviews(false);
+    }
+  };
+
   useEffect(() => {
-    // Clear old data instantly
+
     setProduct(null);
     setReviews([]);
+    setSkipReviews(0);
+    setHasMoreReviews(true);
 
     const fetchData = async () => {
       try {
+
         // Product API
-        const productResponse = await UserAPIService.getProducts({
-          productId,
+        const productResponse =
+          await UserAPIService.getProducts({
+            productId,
+          });
+
+        setProduct(
+          productResponse.data.product[0]
+        );
+
+        // First 2 reviews
+        await fetchReviews({
+          skip: 0,
+          limit: 2,
+          append: false,
         });
-
-        setProduct(productResponse.data.product[0]);
-
-        // Reviews API
-        const reviewResponse = await UserAPIService.getAllReviews({
-          productId,
-        });
-
-        setReviews(reviewResponse.data.product || []);
 
       } catch (error) {
         console.error(error);
-        setReviews([]);
       }
     };
 
     fetchData();
+
   }, [productId]);
+
+
+  const handleShowMoreReviews = async () => {
+
+    const newSkip = reviews.length;
+
+    setSkipReviews(newSkip);
+
+    await fetchReviews({
+      skip: newSkip,
+      limit: 3,
+      append: true,
+    });
+  };
 
 
   const handleAddToCart = async () => {
@@ -187,11 +257,11 @@ export const CardView = () => {
       toast.success(response.message);
 
       // Refetch updated reviews
-      const reviewResponse = await UserAPIService.getAllReviews({
-        productId,
+      await fetchReviews({
+        skip: 0,
+        limit: reviews.length || 2,
+        append: false,
       });
-
-      setReviews(reviewResponse.data.product || []);
 
       setComment("");
       setRating(5);
@@ -285,48 +355,97 @@ export const CardView = () => {
                         </div>
                       </div>
                       {reviews.length > 0 ? (
-                        reviews.map((review, index) => (
-                          <div className="mb-3 border-bottom pb-3" key={index}>
+                        <>
+                          {reviews.map((review, index) => (
+                            <div className="mb-3 border-bottom pb-3" key={index}>
 
-                            {/* Username */}
-                            <label className="col-md-12 fw-bold">
-                              @{review?.userDetail?.username}
-                            </label>
+                              {/* Username */}
+                              <label className="col-md-12 fw-bold">
+                                @{review?.userDetail?.username}
+                              </label>
 
-                            {/* Rating */}
-                            <div className="d-flex gap-1 mb-2">
-                              {[1, 2, 3, 4, 5].map((star) => (
-                                <FaStar
-                                  key={star}
-                                  size={18}
-                                  color={star <= review.rating ? "#ffc107" : "#e4e5e9"}
-                                />
-                              ))}
+                              {/* Rating */}
+                              <div className="d-flex gap-1 mb-2">
+                                {[1, 2, 3, 4, 5].map((star) => (
+                                  <FaStar
+                                    key={star}
+                                    size={18}
+                                    color={
+                                      star <= review.rating
+                                        ? "#ffc107"
+                                        : "#e4e5e9"
+                                    }
+                                  />
+                                ))}
+                              </div>
+
+                              {/* Comment */}
+                              <div>
+                                {expandedReview === index ? (
+                                  <>
+                                    {review.comment}
+
+                                    <span
+                                      style={{
+                                        color: "gray",
+                                        cursor: "pointer",
+                                        marginLeft: "5px",
+                                      }}
+                                      onClick={() =>
+                                        setExpandedReview(null)
+                                      }
+                                    >
+                                      Show Less
+                                    </span>
+                                  </>
+                                ) : (
+                                  <>
+                                    {review.comment
+                                      ?.split(" ")
+                                      .slice(0, 20)
+                                      .join(" ")}
+
+                                    {review.comment?.split(" ")
+                                      .length > 20 && (
+                                        <>
+                                          ...
+
+                                          <span
+                                            style={{
+                                              color: "gray",
+                                              cursor: "pointer",
+                                              marginLeft: "5px",
+                                            }}
+                                            onClick={() =>
+                                              setExpandedReview(index)
+                                            }
+                                          >
+                                            Read More
+                                          </span>
+                                        </>
+                                      )}
+                                  </>
+                                )}
+                              </div>
                             </div>
+                          ))}
 
-                            {/* Comment */}
-                            <div>
-                              {review.comment?.split(" ").length > 20 ? (
-                                <>
-                                  {review.comment.split(" ").slice(0, 20).join(" ")}...
-                                  <span
-                                    style={{
-                                      color: "blue",
-                                      cursor: "pointer",
-                                      marginLeft: "5px",
-                                    }}
-                                    onClick={() => alert(review.comment)}
-                                  >
-                                    Read More
-                                  </span>
-                                </>
-                              ) : (
-                                review.comment
-                              )}
+                          {/* SHOW MORE BUTTON */}
+                          {hasMoreReviews && (
+                            <div className="d-flex justify-content-center mt-3">
+                              <button
+                                type="button"
+                                className="px-4 bg-transparent text-gray border-0"
+                                onClick={handleShowMoreReviews}
+                                disabled={loadingReviews}
+                              >
+                                {loadingReviews
+                                  ? "Loading..."
+                                  : "Show More"}
+                              </button>
                             </div>
-
-                          </div>
-                        ))
+                          )}
+                        </>
                       ) : (
                         <div>No reviews yet</div>
                       )}
