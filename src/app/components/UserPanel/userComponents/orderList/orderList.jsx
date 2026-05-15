@@ -3,6 +3,7 @@ import { Footer } from "../footer/footer"
 import { Navbar } from "../navbar/navbar"
 import UserAPIService from "../../../../services/user_service"
 import moment from "moment"
+import { RiDeleteBinLine } from "react-icons/ri"
 
 export const OrderList = () => {
     const [orderList, setOrderList] = useState([]);
@@ -21,6 +22,17 @@ export const OrderList = () => {
 
         fetchOrderList();
     }, []);
+
+    const handleDeleteOrder = async (orderId) => {
+        try {
+            const response = await UserAPIService.deleteOrder({ orderId, userId });
+            if (response.status === 1) {
+                setOrderList((prevOrders) => prevOrders.filter((order) => order._id !== orderId));
+            }
+        } catch (error) {
+            console.error("Error deleting order:", error);
+        }
+    };
 
 
     const checkDeliveryStatus = (deliveryDate) => {
@@ -47,6 +59,7 @@ export const OrderList = () => {
                                     <th scope="col">Delivery Address</th>
                                     <th scope="col">Delivery status</th>
                                     <th scope="col">Total Amount</th>
+                                    <th scope="col">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -65,6 +78,9 @@ export const OrderList = () => {
                                                 {checkDeliveryStatus(order.delivery_date_time)}
                                             </td>
                                             <td>Rs. {order.totalQuantity * order.productDetails.price}</td>
+                                            <td>
+                                                <RiDeleteBinLine className="nav-icon" onClick={() => handleDeleteOrder(order._id)} />
+                                            </td>
                                         </tr>
                                     ))
                                 ) : (
